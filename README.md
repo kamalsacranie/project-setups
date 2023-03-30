@@ -1,0 +1,4 @@
+- Nodenext in tsconfig for import export resolution
+  - Means we have to import with a .js, annoying
+- type: module in package.json
+- jest flags
