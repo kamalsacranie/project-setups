@@ -1,8 +1,11 @@
 {
   "name": "create-project",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "jest": {
+    "moduleNameMapper": {
+      "(.+)\\.js": "$1"
+    },
     "transform": {
       "^.+\\.tsx?$": [
         "ts-jest",
@@ -13,7 +16,8 @@
     }
   },
   "scripts": {
-    "test": "jest --detectOpenHandles --runInBand --verbose --passWithNoTests --no-cache"
+    "test": "jest --detectOpenHandles --runInBand --verbose --passWithNoTests --no-cache",
+    "start": "tsx ./src/index.ts"
   },
   "type": "module",
   "keywords": [],
@@ -21,6 +25,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@jest/globals": "^29.5.0",
     "@types/inquirer": "^9.0.3",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
