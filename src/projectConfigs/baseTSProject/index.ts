@@ -1,17 +1,23 @@
 import fs from "node:fs/promises";
 import { spawn } from "node:child_process";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 
 export const setupProject = async function (projectName: string) {
   const cwdSpawn = (command: string, args: string[]) => {
     return spawn(command, args, { cwd: projectPath });
   };
 
-  const projectPath = await fs.mkdir(
-    `${dirname(fileURLToPath(import.meta.url))}/${projectName}/src`,
-    { recursive: true }
-  );
+  let projectPath: string | undefined;
+  console.log(projectName, "JKFDLJDLFKJS");
+  if (projectName === ".") {
+    projectPath = process.cwd();
+    await fs.mkdir(`${projectPath}/${projectName}/src`, {
+      recursive: true,
+    });
+  } else {
+    projectPath = await fs.mkdir(`${process.cwd()}/${projectName}/src`, {
+      recursive: true,
+    });
+  }
 
   if (!projectPath) throw Error("Failed to create directory");
 
