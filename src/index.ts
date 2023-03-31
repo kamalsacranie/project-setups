@@ -1,7 +1,9 @@
+#!/usr/bin/env node
+
 import inquirer, { QuestionCollection } from "inquirer";
 import fs from "fs/promises";
 import { fileURLToPath } from "url";
-import { dirname, parse } from "path";
+import { dirname } from "path";
 import { slugify } from "./utils.js";
 
 // dynamically populate form config dir
@@ -22,14 +24,17 @@ const projectQuestion: QuestionCollection = [
     type: "input",
     name: "projectName",
     message: "Give your project a name",
+    default: ".",
   },
 ];
 
 const { projectType: selectedProject, projectName }: Record<string, string> =
   await inquirer.prompt(projectQuestion);
 
-const { setupProject } = await import(`./projectConfigs/${selectedProject}`);
+const { setupProject } = await import(
+  `./projectConfigs/${selectedProject}/index.js` // i should not have to say index.js???
+);
 
-const projectNameSlug = slugify(projectName);
+const projectNameSlug = projectName === "." ? "." : slugify(projectName);
 
 setupProject(projectNameSlug);

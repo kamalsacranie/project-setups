@@ -17,7 +17,8 @@
   },
   "scripts": {
     "test": "jest --detectOpenHandles --runInBand --verbose --passWithNoTests --no-cache",
-    "start": "tsx ./src/index.ts"
+    "start": "npm run build; node ./dist/index.js",
+    "build": "rm -r ./dist; npx tsc; chmod +x ./dist/index.js"
   },
   "type": "module",
   "keywords": [],
